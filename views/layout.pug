@@ -1,0 +1,36 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    meta(name="csrf-token" content=csrfToken)
+    title #{title || 'YouTube Clone'}
+    link(rel="stylesheet" href="/css/style.css")
+  body
+    nav.navbar
+      .nav-left
+        a.logo(href="/")
+          span.logo-icon ▶
+          span.logo-text ViewTube
+        form.search-form(action="/" method="GET")
+          input.search-input(
+            type="text"
+            name="q"
+            placeholder="Search videos..."
+            value=search || ''
+          )
+          button.search-btn(type="submit") 🔍
+      .nav-right
+        if currentUser
+          a.nav-btn(href="/videos/upload") + Upload
+          a.nav-avatar(href=`/channel/${currentUser.username}`)
+            span.avatar-circle= currentUser.username[0].toUpperCase()
+          a.nav-btn.nav-btn-outline(href="/auth/logout") Sign Out
+        else
+          a.nav-btn.nav-btn-outline(href="/auth/login") Sign In
+          a.nav-btn(href="/auth/register") Sign Up
+
+    .container
+      block content
+
+    script(src="/js/main.js")

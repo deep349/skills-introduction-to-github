@@ -1,0 +1,47 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "testuser",
+      "email": "test@example.com",
+      "password": "$2a$10$YLSAgp8Bcr4/WlWofXLDreSFssrh.Zozy5Aq/aY5upi960UY3r.oC",
+      "avatar": null,
+      "createdAt": "2026-02-22T06:41:28.677Z"
+    },
+    {
+      "id": 2,
+      "username": "demouser2",
+      "email": "demo2@example.com",
+      "password": "$2a$10$ubPY6Sr8Gr6s6Kvk6W6Ua.YnUYP0syIikm.f5DhFz7HuvFHRyoBUi",
+      "avatar": null,
+      "createdAt": "2026-02-22T06:48:08.051Z"
+    },
+    {
+      "id": 3,
+      "username": "debuguser",
+      "email": "debug@example.com",
+      "password": "$2a$10$rOd4mZicEmC3CkVdN91yKOYqTL6/g.uF4dJl0MqXv8eTjQjQnYcc2",
+      "avatar": null,
+      "createdAt": "2026-02-22T06:48:49.288Z"
+    },
+    {
+      "id": 4,
+      "username": "newuser99",
+      "email": "new99@example.com",
+      "password": "$2a$10$ZS18ODBGLbsEXpmbcBxvPurJxm3sw9PZYO55JPPGfzsiTYgY2JtBe",
+      "avatar": null,
+      "createdAt": "2026-02-22T06:48:59.784Z"
+    },
+    {
+      "id": 5,
+      "username": "freshuser",
+      "email": "fresh@example.com",
+      "password": "$2a$10$ZPTbZ/.99xEOErJTSfsW0.kN49m4iCmu5xeh9CtjWPNHFpDyXwFhO",
+      "avatar": null,
+      "createdAt": "2026-02-22T06:49:34.960Z"
+    }
+  ],
+  "videos": [],
+  "comments": [],
+  "likes": []
+}

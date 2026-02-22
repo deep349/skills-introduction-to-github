@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  .form-page
+    .form-card
+      h2 Sign In
+      if error && error.length
+        .alert.alert-error= error[0]
+      if success && success.length
+        .alert.alert-success= success[0]
+      form(action="/auth/login" method="POST")
+        input(type="hidden" name="_csrf" value=csrfToken)
+        .form-group
+          label(for="email") Email
+          input#email.form-input(type="email" name="email" required placeholder="your@email.com")
+        .form-group
+          label(for="password") Password
+          input#password.form-input(type="password" name="password" required placeholder="••••••••")
+        button.btn.btn-full(type="submit") Sign In
+      p.form-footer
+        | Don't have an account? &nbsp;
+        a(href="/auth/register") Sign Up

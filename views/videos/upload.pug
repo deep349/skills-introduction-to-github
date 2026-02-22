@@ -1,0 +1,23 @@
+extends ../layout
+
+block content
+  .form-page
+    .form-card
+      h2 Upload Video
+      if error && error.length
+        .alert.alert-error= error[0]
+      form(action="/videos/upload" method="POST" enctype="multipart/form-data")
+        input(type="hidden" name="_csrf" value=csrfToken)
+        .form-group
+          label(for="title") Title *
+          input#title.form-input(type="text" name="title" required placeholder="Enter video title")
+        .form-group
+          label(for="description") Description
+          textarea#description.form-input.form-textarea(name="description" placeholder="Describe your video...")
+        .form-group
+          label(for="video") Video File * (max 500MB)
+          input#video.form-input(type="file" name="video" accept="video/*" required)
+        .form-group
+          label(for="thumbnail") Thumbnail (optional)
+          input#thumbnail.form-input(type="file" name="thumbnail" accept="image/*")
+        button.btn.btn-full(type="submit") 🚀 Upload Video
