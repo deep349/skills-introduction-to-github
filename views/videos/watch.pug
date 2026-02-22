@@ -1,0 +1,87 @@
+extends ../layout
+
+block content
+  .watch-page
+    .watch-main
+      .video-player-wrapper
+        video.video-player(controls autoplay)
+          source(src=`/uploads/videos/${video.filename}`)
+          | Your browser does not support the video tag.
+
+      .video-details
+        h1.watch-title= video.title
+        .watch-meta
+          .watch-stats
+            span #{video.views} views
+            span.dot ·
+            span= new Date(video.createdAt).toLocaleDateString()
+          .watch-actions
+            button.like-btn(
+              data-id=video.id
+              data-type="like"
+              class=userAction === 'like' ? 'active' : ''
+            )
+              span.like-icon 👍
+              span.like-count= video.likesCount
+            button.like-btn(
+              data-id=video.id
+              data-type="dislike"
+              class=userAction === 'dislike' ? 'active' : ''
+            )
+              span.like-icon 👎
+              span.dislike-count= video.dislikesCount
+            if !currentUser
+              small.login-hint &nbsp;
+                a(href="/auth/login") Sign in
+                |  to like
+
+        .channel-strip
+          a.channel-link(href=`/channel/${video.user.username}`)
+            span.avatar-circle-sm= video.user.username[0].toUpperCase()
+            span.channel-name-text= video.user.username
+
+        if video.description
+          .description-box
+            p= video.description
+
+      .comments-section
+        h3 Comments (#{video.comments.length})
+
+        if currentUser
+          form.comment-form(action=`/videos/${video.id}/comment` method="POST")
+            input(type="hidden" name="_csrf" value=csrfToken)
+            .comment-input-row
+              span.avatar-circle-sm= currentUser.username[0].toUpperCase()
+              input.comment-input(
+                type="text"
+                name="text"
+                placeholder="Add a comment..."
+                required
+              )
+            button.btn.btn-sm(type="submit") Post
+
+        if error && error.length
+          .alert.alert-error= error[0]
+
+        .comment-list
+          each comment in video.comments
+            .comment-item
+              span.avatar-circle-sm= comment.user.username[0].toUpperCase()
+              .comment-body
+                strong= comment.user.username
+                span.comment-date  · #{new Date(comment.createdAt).toLocaleDateString()}
+                p= comment.text
+
+    .watch-sidebar
+      h3 Related Videos
+      each rv in related
+        a.sidebar-card(href=`/videos/${rv.id}`)
+          .sidebar-thumb
+            if rv.thumbnail
+              img(src=`/uploads/thumbnails/${rv.thumbnail}` alt=rv.title)
+            else
+              .sidebar-thumb-placeholder ▶
+          .sidebar-info
+            p.sidebar-title= rv.title
+            small.sidebar-channel= rv.user.username
+            small.sidebar-views  · #{rv.views} views

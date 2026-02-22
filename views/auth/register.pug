@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  .form-page
+    .form-card
+      h2 Create Account
+      if error && error.length
+        .alert.alert-error= error[0]
+      form(action="/auth/register" method="POST")
+        input(type="hidden" name="_csrf" value=csrfToken)
+        .form-group
+          label(for="username") Username
+          input#username.form-input(type="text" name="username" required placeholder="cooluser123")
+        .form-group
+          label(for="email") Email
+          input#email.form-input(type="email" name="email" required placeholder="your@email.com")
+        .form-group
+          label(for="password") Password
+          input#password.form-input(type="password" name="password" required placeholder="Min. 6 characters")
+        .form-group
+          label(for="confirmPassword") Confirm Password
+          input#confirmPassword.form-input(type="password" name="confirmPassword" required placeholder="Repeat password")
+        button.btn.btn-full(type="submit") Create Account
+      p.form-footer
+        | Already have an account? &nbsp;
+        a(href="/auth/login") Sign In

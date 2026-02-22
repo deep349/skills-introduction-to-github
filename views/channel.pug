@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  .channel-page
+    .channel-header
+      .channel-avatar-large= channelUser.username[0].toUpperCase()
+      .channel-header-info
+        h1= channelUser.username
+        p #{videos.length} video#{videos.length !== 1 ? 's' : ''}
+
+    h3.section-title Uploaded Videos
+
+    if videos.length === 0
+      .empty-state
+        .empty-icon 📹
+        p No videos yet.
+
+    .video-grid
+      each video in videos
+        a.video-card(href=`/videos/${video.id}`)
+          .thumbnail-wrapper
+            if video.thumbnail
+              img.thumbnail(src=`/uploads/thumbnails/${video.thumbnail}` alt=video.title)
+            else
+              .thumbnail-placeholder
+                span ▶
+          .video-info
+            h3.video-title= video.title
+            .video-stats
+              span.views #{video.views} views
+              span.dot ·
+              span.date= new Date(video.createdAt).toLocaleDateString()

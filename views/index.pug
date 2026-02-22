@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  if success && success.length
+    .alert.alert-success= success[0]
+
+  .page-header
+    h2
+      if search
+        | Search results for: "#{search}"
+      else
+        | 🔥 Trending Videos
+
+  if videos.length === 0
+    .empty-state
+      .empty-icon 📹
+      p No videos found.
+      if !currentUser
+        a.btn(href="/auth/register") Join to Upload
+      else
+        a.btn(href="/videos/upload") Upload First Video
+
+  .video-grid
+    each video in videos
+      a.video-card(href=`/videos/${video.id}`)
+        .thumbnail-wrapper
+          if video.thumbnail
+            img.thumbnail(src=`/uploads/thumbnails/${video.thumbnail}` alt=video.title)
+          else
+            .thumbnail-placeholder
+              span ▶
+          .video-duration-badge #{video.views} views
+        .video-info
+          h3.video-title= video.title
+          .video-meta
+            span.channel-name= video.user.username
+          .video-stats
+            span.views #{video.views} views
+            span.dot ·
+            span.date= new Date(video.createdAt).toLocaleDateString()
